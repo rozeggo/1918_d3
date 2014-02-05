@@ -38,12 +38,12 @@ var x = d3.scale.linear()
 	.range([margin,width-margin]);
 
 var y = d3.scale.linear()
-	.domain([0,590000])
+	.domain([0,660000])
 	.range([height-margin,margin]);
 
 var r = d3.scale.linear()
-	.domain([0,500])
-	.range([0,20]);
+	.domain([0,100])
+	.range([0,50]);
 
 //var o = d3.scale.linear()
 //	.domain([10000,10000])
@@ -82,7 +82,19 @@ var yAxis = d3.svg.axis()
 //	.attr("x1",x).attr("x2",x)
 
 
+d3.csv("all.csv",function(csv){
 
+	svg.selectAll("line")
+		.data(csv)
+		.enter()
+		.append("line")
+		.attr("x1",function(d) {return x(+d.V1);})
+		.attr("y1",function(d) {return y(+d.V2);})
+		.attr("x2",function(d) {return x(+d.V3);})
+		.attr("y2",function(d) {return y(+d.V4);})
+		.attr("stroke-width", 1)
+		.attr("stroke", "blue") 
+		})
 
 
 
@@ -108,7 +120,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.transition().duration(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(20*+d.day_one);})
+		.attr("r",function(d) {return r(+d.day_one);})
 		.attr("opacity",0.5)
 //		.attr("r",function(d) {return r(Math.sqrt(+d.population));})
 
@@ -117,7 +129,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(20*+d.day_two);})
+		.attr("r",function(d) {return r(+d.day_two);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -125,7 +137,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(2000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(20*+d.day_three);})
+		.attr("r",function(d) {return r(+d.day_three);})
 		.attr("opacity",0.5)
 
 	})
