@@ -3,6 +3,13 @@
 
 <style>
 
+text {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	pointer-events: none;
+}
+
+path:hover {fill : orange; stroke: orange}
+
 body{margin:0px;}
 .h,.v{stroke:black;stroke-dasharray:4 4;stroke-width:1;stroke-opacity:.5;}
 .axis path,
@@ -25,14 +32,25 @@ body{margin:0px;}
 
 <script>
 
-var width = 500,
-	height = 500,
+
+
+var width = 750,
+	height = 750,
 	margin = 50;
 	
 var svg = d3.select("body").append("svg")
 	.attr("width",width)
 	.attr("height",height);
-	
+
+svg.append("foreignObject")
+    .attr("width", 480)
+    .attr("height", 500)
+    .attr("x", 20)
+    .attr("y", 20)
+  .append("xhtml:body")
+    .style("font", "14px 'Helvetica Neue'")
+    .html("<h1>Flu mortality trends across the U.K.</h1><p>Changes can be seen across space.<p>And through time.</p>");
+
 var x = d3.scale.linear()
 	.domain([0,660000])
 	.range([margin,width-margin]);
@@ -60,10 +78,13 @@ var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left");
 
+
+
 //svg.append("g")
 //	.attr("class","axis")
 //	.attr("transform","translate(0," + (height - margin) + ")")
 //	.call(xAxis);
+
 
 
 //svg.append("g")
@@ -83,6 +104,23 @@ var yAxis = d3.svg.axis()
 
 
 d3.csv("all.csv",function(csv){
+//d3.csv("england.csv",function(csv){
+
+//			var group = svg.append("g")
+//				.attr("transform", "translate(1,1)");
+			
+//			var line = d3.svg.line()
+//				.x(function (d) { return d.x; })
+//				.y(function (d) { return 800-d.y; })
+				
+//			group.selectAll("path")
+//				.data([csv])
+//				.enter()
+//				.append("path")
+//				.attr("d",line)
+//				.attr("fill","cornflowerblue")
+//				.attr("stroke","cornflowerblue")
+//				.attr("stroke-width",2)
 
 	svg.selectAll("line")
 		.data(csv)
@@ -97,11 +135,11 @@ d3.csv("all.csv",function(csv){
 		})
 
 
-
 d3.csv("EnglandAndWales_temp.csv", function(csv) {
 
 //	csv.sort(function(a,b) { return b.population-a.population; });
 	
+
 	svg.selectAll("circle")
 		.data(csv)
 		.enter()
@@ -110,26 +148,19 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.attr("cy",function(d) {return y(+d.Northing);})
 		.attr("r",function(d) {return r(0);})
 		
-//		.style("fill",function(d) {return c(d.continent);})
-//		.style("opacity",function(d) {return o(+d.GDPcap);})
-		
-//		.append("title")
-//		.text(function(d) {return d.country;})
-		
 	svg.selectAll("circle")
 		.transition().duration(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.day_one);})
+		.attr("r",function(d) {return r(+d.week_1*10);})
 		.attr("opacity",0.5)
-//		.attr("r",function(d) {return r(Math.sqrt(+d.population));})
 
 	svg.selectAll("circle")
 		.transition().duration(1000)
 		.delay(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.day_two);})
+		.attr("r",function(d) {return r(+d.week_2*10);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -137,8 +168,89 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(2000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.day_three);})
+		.attr("r",function(d) {return r(+d.week_3*10);})
 		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(3000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_4*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(4000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_5*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(5000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_6*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(6000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_7*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(7000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_8*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(8000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_9*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(9000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_10*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(10000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_11*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(11000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_12*10);})
+		.attr("opacity",0.5)
+
+	svg.selectAll("circle")
+		.transition().duration(1000)
+		.delay(12000)
+		.attr("cx",function(d) {return x(+d.Easting);})
+		.attr("cy",function(d) {return y(+d.Northing);})
+		.attr("r",function(d) {return r(+d.week_13*10);})
+		.attr("opacity",0.5)
+
 
 	})
 
