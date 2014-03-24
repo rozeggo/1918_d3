@@ -36,20 +36,20 @@ body{margin:0px;}
 
 var width = 750,
 	height = 750,
-	margin = 50;
+	margin = 100;
 	
 var svg = d3.select("body").append("svg")
 	.attr("width",width)
 	.attr("height",height);
 
 svg.append("foreignObject")
-    .attr("width", 480)
+    .attr("width", 200)
     .attr("height", 500)
     .attr("x", 20)
     .attr("y", 20)
   .append("xhtml:body")
-    .style("font", "14px 'Helvetica Neue'")
-    .html("<h1>Flu mortality trends across the U.K.</h1><p>Changes can be seen across space.<p>And through time.</p>");
+    .style("font", "12px 'Helvetica Neue'")
+    .html("<h1>Flu mortality trends across England and Wales during the 1918 flu pandemic</h1><p>Changes can be seen across space. And through time.<p>The radius of each circle represents the per-capita mortality rate in that location.</p>");
 
 var x = d3.scale.linear()
 	.domain([0,660000])
@@ -78,14 +78,10 @@ var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left");
 
-
-
 //svg.append("g")
 //	.attr("class","axis")
 //	.attr("transform","translate(0," + (height - margin) + ")")
 //	.call(xAxis);
-
-
 
 //svg.append("g")
 //	.attr("class","axis")
@@ -102,8 +98,8 @@ var yAxis = d3.svg.axis()
 //	.attr("y1",margin).attr("y2",width-margin)
 //	.attr("x1",x).attr("x2",x)
 
-
-d3.csv("all.csv",function(csv){
+d3.csv("more_geo.csv",function(csv){
+//d3.csv("all.csv",function(csv){
 //d3.csv("england.csv",function(csv){
 
 //			var group = svg.append("g")
@@ -138,7 +134,7 @@ d3.csv("all.csv",function(csv){
 d3.csv("EnglandAndWales_temp.csv", function(csv) {
 
 //	csv.sort(function(a,b) { return b.population-a.population; });
-	
+	var factor = 5;
 
 	svg.selectAll("circle")
 		.data(csv)
@@ -152,7 +148,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.transition().duration(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_1*10);})
+		.attr("r",function(d) {return r(+d.week_1*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -160,7 +156,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(1000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_2*10);})
+		.attr("r",function(d) {return r(+d.week_2*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -168,7 +164,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(2000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_3*10);})
+		.attr("r",function(d) {return r(+d.week_3*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -176,7 +172,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(3000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_4*10);})
+		.attr("r",function(d) {return r(+d.week_4*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -184,7 +180,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(4000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_5*10);})
+		.attr("r",function(d) {return r(+d.week_5*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -192,7 +188,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(5000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_6*10);})
+		.attr("r",function(d) {return r(+d.week_6*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -200,7 +196,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(6000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_7*10);})
+		.attr("r",function(d) {return r(+d.week_7*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -208,7 +204,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(7000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_8*10);})
+		.attr("r",function(d) {return r(+d.week_8*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -216,7 +212,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(8000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_9*10);})
+		.attr("r",function(d) {return r(+d.week_9*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -224,7 +220,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(9000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_10*10);})
+		.attr("r",function(d) {return r(+d.week_10*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -232,7 +228,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(10000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_11*10);})
+		.attr("r",function(d) {return r(+d.week_11*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -240,7 +236,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(11000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_12*10);})
+		.attr("r",function(d) {return r(+d.week_12*factor);})
 		.attr("opacity",0.5)
 
 	svg.selectAll("circle")
@@ -248,7 +244,7 @@ d3.csv("EnglandAndWales_temp.csv", function(csv) {
 		.delay(12000)
 		.attr("cx",function(d) {return x(+d.Easting);})
 		.attr("cy",function(d) {return y(+d.Northing);})
-		.attr("r",function(d) {return r(+d.week_13*10);})
+		.attr("r",function(d) {return r(+d.week_13*factor);})
 		.attr("opacity",0.5)
 
 
