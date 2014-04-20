@@ -32,7 +32,7 @@ body{margin:0px;}
 <script>
 
 
-var width = 750,
+var width = 1500,
 	height = 750,
 	margin = 100;
 	
@@ -47,7 +47,7 @@ svg.append("foreignObject")
     .attr("y", 20)
   .append("xhtml:body")
     .style("font", "12px 'Helvetica Neue'")
-    .html("<h1>Flu mortality trends across England and Wales during the 1918 flu pandemic</h1><p>Changes can be seen across space. And through time.<p>The radius of each circle represents the per-capita mortality rate in that location.</p></p>Below are circles indicating mortality rates of 10, 50, and 100 deaths per 1000 people.");
+    .html("<h1>Flu mortality trends across major cities in the United States during the 1918 flu pandemic</h1><p>Changes can be seen across space. And through time.<p>The radius of each circle represents the per-capita mortality rate in that location.</p></p>Below are circles indicating mortality rates of 10, 50, and 100 deaths per 1000 people.");
 
 var legend = svg.selectAll("ellipse")
 	.data([100,50,10])
@@ -63,23 +63,16 @@ var legend = svg.selectAll("ellipse")
 
 
 var x = d3.scale.linear()
-	.domain([0,660000])
+	.domain([-150,-20])
 	.range([margin,width-margin]);
 
 var y = d3.scale.linear()
-	.domain([0,660000])
+	.domain([10,50])
 	.range([height-margin,margin]);
 
 var r = d3.scale.linear()
 	.domain([0,100])
 	.range([0,50]);
-
-//var o = d3.scale.linear()
-//	.domain([10000,10000])
-//	.range([.5,1]);
-
-//var c = d3.scale.category10()
-//	.domain(["Africa","America","Asia","Europe","Ocenaia"]);
 
 var xAxis = d3.svg.axis()
 	.scale(x)
@@ -89,63 +82,26 @@ var yAxis = d3.svg.axis()
 	.scale(y)
 	.orient("left");
 
-//svg.append("g")
-//	.attr("class","axis")
-//	.attr("transform","translate(0," + (height - margin) + ")")
-//	.call(xAxis);
 
-//svg.append("g")
-//	.attr("class","axis")
-//	.attr("transform","translate(" + margin + ",0)")
-//	.call(yAxis);
-
-//svg.selectAll(".h").data(d3.range(-8,10,2)).enter()
-//	.append("line").classed("h",1)
-//	.attr("x1",margin).attr("x2",height-margin)
-//	.attr("y1",y).attr("y2",y)
-
-//svg.selectAll(".v").data(d3.range(1,5)).enter()
-//	.append("line").classed("v",1)
-//	.attr("y1",margin).attr("y2",width-margin)
-//	.attr("x1",x).attr("x2",x)
-
-d3.csv("more_geo.csv",function(csv){
-//d3.csv("all.csv",function(csv){
-//d3.csv("england.csv",function(csv){
-
-//			var group = svg.append("g")
-//				.attr("transform", "translate(1,1)");
-			
-//			var line = d3.svg.line()
-//				.x(function (d) { return d.x; })
-//				.y(function (d) { return 800-d.y; })
-				
-//			group.selectAll("path")
-//				.data([csv])
-//				.enter()
-//				.append("path")
-//				.attr("d",line)
-//				.attr("fill","cornflowerblue")
-//				.attr("stroke","cornflowerblue")
-//				.attr("stroke-width",2)
+d3.csv("USA_space.csv",function(csv){
 
 	svg.selectAll("line")
 		.data(csv)
 		.enter()
 		.append("line")
-		.attr("x1",function(d) {return x(+d.V1);})
-		.attr("y1",function(d) {return y(+d.V2);})
-		.attr("x2",function(d) {return x(+d.V3);})
-		.attr("y2",function(d) {return y(+d.V4);})
+		.attr("x1",function(d) {return x(+d.V2);})
+		.attr("y1",function(d) {return y(+d.V1);})
+		.attr("x2",function(d) {return x(+d.V4);})
+		.attr("y2",function(d) {return y(+d.V3);})
 		.attr("stroke-width", 1)
 		.attr("stroke", "grey") 
 		})
 
 
-d3.csv("EnglandAndWales_temp.csv", function(csv) {
+d3.csv("USA_data.csv", function(csv) {
 
 //	csv.sort(function(a,b) { return b.population-a.population; });
-	var factor = 2;
+	var factor = 1;
 
 //	svg.append("text")
 //		.text("hi")
